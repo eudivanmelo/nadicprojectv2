@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}" />
+    <title>PC Fix CRM - Login</title>
+
+    <!-- CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+  <body>
+	<!-- Login card -->
+	<div class="card col-4 m-auto text-center login-card">
+
+		<div class="card-header bg-dark text-white">
+			Nacic Project v2 - Login
+		</div>
+
+		<div class="card-body">
+
+			{% if form.non_field_errors %}
+				<div class="alert alert-danger my-3">
+				{% for error in form.non_field_errors %}
+					{{ error }}
+				{% endfor %}
+				</div>
+			{% endif %}
+
+			<form method="post">
+				{% csrf_token %}
+
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="nameInput" name="username" placeholder="Username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" required>
+					<label for="nameInput">Username</label>
+					{% for error in form.username.errors %}
+						<div class="invalid-feedback">{{ error }}</div>
+					{% endfor %}
+				</div>
+
+				<div class="form-floating mb-3">
+					<input type="password" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="passwordInput" name="password" placeholder="Password" required>
+					<label for="passwordInput">Password</label>
+					{% for error in form.password.errors %}
+						<div class="invalid-feedback">{{ error }}</div>
+					{% endfor %}
+				</div>
+
+				<button type="submit" class="btn btn-dark col-12">Confirm</button>
+			</form>
+
+			<p class="fw-lighter mt-3 mb-0">by: Eudivan Junior</p>
+		</div>
+	</div>
+
+	<div id="particles-js"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="{% static 'js/particles.min.js' %}"></script>
+	<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
