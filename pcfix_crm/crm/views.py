@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from .utils import log_message, count_ordersDelayed, count_ordersEarning
+from .utils import log_message, count_ordersDelayed, count_ordersEarning, generate_weekly_report
 from .models import Customer, ServiceOrder
 
 def login_view(request: HttpRequest):
@@ -86,5 +86,6 @@ def dashboard_view(request: HttpRequest):
     
     context.update({'orderdelayed': count_ordersDelayed(ServiceOrder.objects.filter(status__in=['budgeting', 'approved_budget', 'under_maintenance']), 48)})
     context.update({'totalearnings': count_ordersEarning(ServiceOrder.objects.filter(status='delivered'))})
+    context.update({'data_dashboard': generate_weekly_report()})
     
     return render(request, 'dashboard.html', context)
