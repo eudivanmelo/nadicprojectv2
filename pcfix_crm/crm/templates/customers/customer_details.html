@@ -49,7 +49,7 @@
                             {% for service in services %}
                                 <tr>
                                     <td>{{service.id|stringformat:"05d"}}</td>
-                                    <td>{{service.description|truncatechars:50}}</td>
+                                    <td>{{service.description|truncatechars:40}}</td>
                                     <td class="" style="padding-top: 1px; padding-left: 0;">
                                         {% if service.status == 'budgeting' %}
                                             <span class="badge rounded-pill bg-warning text-dark">Budgeting</span>
