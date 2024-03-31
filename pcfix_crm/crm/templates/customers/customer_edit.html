@@ -1,0 +1,126 @@
+{% extends "../utils/base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Edit Customer</h1>
+    </div>
+
+    <form class="" method="post">
+        {% csrf_token %}
+
+        <div class="w-50 mt-5 m-auto" style="min-width: 300px;">
+            <div class="row mb-3">
+                <label for="inputFirstName" class="col-auto col-form-label">First Name:</label>
+                <div class="col">
+                    <input placeholder="First Name"
+                            value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" 
+                            name="first_name" type="text" 
+                            class="form-control form-control-sm {% if form.first_name.errors %}is-invalid{% endif %}" 
+                            id="inputFirstName">
+
+                    {% for error in form.first_name.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputLastName" class="col-auto col-form-label">Last Name:</label>
+                <div class="col">
+                    <input placeholder="Last Name"
+                            value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" 
+                            name="last_name" type="text" 
+                            class="form-control form-control-sm {% if form.last_name.errors %}is-invalid{% endif %}" 
+                            id="inputLastName">
+                    
+                    {% for error in form.last_name.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputEmail" class="col-auto col-form-label">Email:</label>
+                <div class="col">
+                    <input placeholder="example@example.com" 
+                            value="{% if form.email.value %}{{ form.email.value }}{% endif %}" 
+                            name="email" type="email" 
+                            class="form-control form-control-sm {% if form.email.errors %}is-invalid{% endif %}" 
+                            id="inputEmail">
+                
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputPhone" class="col-auto col-form-label">Phone:</label>
+                <div class="col">
+                    <input placeholder="Only numbers (DDD+Number)" 
+                            value="{% if form.phone.value %}{{ form.phone.value }}{% endif %}" 
+                            name="phone" type="text" 
+                            class="form-control form-control-sm {% if form.phone.errors %}is-invalid{% endif %}" 
+                            id="inputPhone">
+                    
+                    {% for error in form.address.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputAddress" class="col-auto col-form-label">Address:</label>
+                <div class="col">
+                    <input placeholder="Main Street, 887 - Downtown | Chicago" 
+                            value="{% if form.address.value %}{{ form.address.value }}{% endif %}" 
+                            name="address" type="text" 
+                            class="form-control form-control-sm {% if form.address.errors %}is-invalid{% endif %}" 
+                            id="inputAddress">
+
+                    {% for error in form.address.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputCPF" class="col-auto col-form-label">CPF:</label>
+                <div class="col">
+                    <input placeholder="Only numbers"
+                            value="{% if form.cpf.value %}{{ form.cpf.value }}{% endif %}" 
+                            name="cpf" type="text" 
+                            class="form-control form-control-sm {% if form.cpf.errors %}is-invalid{% endif %}" 
+                            id="inputCPF" maxlength="11"> 
+
+                    {% for error in form.cpf.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputCreated_at" class="col-auto col-form-label">Created at:</label>
+                <div class="col">
+                    <input value="{{ customer.created_at }}" 
+                            type="text" 
+                            class="form-control-plaintext" 
+                            id="inputCreated_at" readonly> 
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-dark w-100">Save</button>
+                </div>
+                
+                <div class="col">
+                    <a class="btn btn-danger w-100" href="{% url "customers" %}">Back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock main %}

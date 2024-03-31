@@ -1,0 +1,89 @@
+{% extends "../utils/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Customer Details</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h4>Customer Information</h4>
+                    <div class="ms-3">
+                        <p class="m-0"><strong>First Name: </strong>{{customer.first_name}}</p>
+                        <p class="m-0"><strong>Last Name: </strong>{{customer.last_name}}</p>
+                        <p class="m-0"><strong>Address: </strong>{{customer.address}}</p>
+                        <p class="m-0"><strong>CPF: </strong>{{customer.cpf|cpf_format}}</p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h4>Contact Information</h4>
+                    <div class="ms-3">
+                        <p class="m-0"><strong>Phone: </strong>{{customer.phone|phone_format}}</p>
+                        <p class="m-0"><strong>Email: </strong>{{customer.email}}</p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url "customers" %}" class="btn btn-dark">Back</a>
+                    <a href="{% url "edit_customer" customer_id=customer.id %}" class="btn btn-success">Edit</a>
+                    <a href="{% url "delete_customer" customer_id=customer.id %}" class="btn btn-danger">Delete</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            {% if services %}
+                <div class="table-responsive mb-3" style="height: calc(100vh - 160px);">
+                    <table class="table table-sm table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in services %}
+                                <tr>
+                                    <td>{{service.id|stringformat:"05d"}}</td>
+                                    <td>{{service.description|truncatechars:50}}</td>
+                                    <td class="" style="padding-top: 1px; padding-left: 0;">
+                                        {% if service.status == 'budgeting' %}
+                                            <span class="badge rounded-pill bg-warning text-dark">Budgeting</span>
+                                        {% elif service.status == 'approved_budget' %}
+                                            <span class="badge rounded-pill bg-secondary">Approved budget</span>
+                                        {% elif service.status == 'under_maintenance' %}
+                                            <span class="badge rounded-pill bg-primary">Under maintenance</span>
+                                        {% elif service.status == 'concluded' %}
+                                            <span class="badge rounded-pill bg-info text-dark">Concluded</span>
+                                        {% elif service.status == 'delivered' %}
+                                            <span class="badge rounded-pill bg-success">Delivered</span>
+                                        {% else %}
+                                            <span class="badge rounded-pill bg-danger">Null</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="#" class="link-dark text-decoration-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 29 29" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    There are no services linked to this client!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock main %}
+

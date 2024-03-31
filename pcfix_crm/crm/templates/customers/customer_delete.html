@@ -1,0 +1,23 @@
+{% extends "../utils/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Delete Customer</h1>
+    </div>
+
+    <div class="container">
+
+        <p>Are you sure you want to delete the customer?</p>
+        <p class="m-0"><strong>Customer: </strong> {{ customer }}</p>
+        <p><strong>CPF</strong> {{ customer.cpf|cpf_format }}</p>
+        <p class="text-danger">This action is irreversible.</p>
+        <form method="post">
+            {% csrf_token %}
+            <a class="btn btn-dark me-3" href="{% url "customers" %}">Back</a>
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+        
+{% endblock main %}

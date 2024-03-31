@@ -25,7 +25,7 @@ class Customer(models.Model):
                               help_text="Phone number of the customer.")
     address = models.CharField(max_length=200,
                                 help_text="Address of the customer.")
-    cpf = models.CharField(max_length=11,
+    cpf = models.CharField(max_length=11, unique=True,
                             help_text="CPF number of the customer.")
     created_at = models.DateTimeField(auto_now_add=True,
                                        help_text="Date and time when the customer record was created.")

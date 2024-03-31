@@ -66,7 +66,21 @@
                             <td><a href="#">{{serviceorder.id|stringformat:"05d"}}</a></td>
                             <td>{{serviceorder.description|truncatechars:50}}</td>
                             <td>R${{serviceorder.value}}</td>
-                            <td>{{serviceorder.status}}</td>
+                            <td class="" style="padding-top: 1px; padding-left: 0;">
+                                {% if serviceorder.status == 'budgeting' %}
+                                    <span class="badge rounded-pill bg-warning text-dark">Budgeting</span>
+                                {% elif serviceorder.status == 'approved_budget' %}
+                                    <span class="badge rounded-pill bg-secondary">Approved budget</span>
+                                {% elif serviceorder.status == 'under_maintenance' %}
+                                    <span class="badge rounded-pill bg-primary">Under maintenance</span>
+                                {% elif serviceorder.status == 'concluded' %}
+                                    <span class="badge rounded-pill bg-info text-dark">Concluded</span>
+                                {% elif serviceorder.status == 'delivered' %}
+                                    <span class="badge rounded-pill bg-success">Delivered</span>
+                                {% else %}
+                                    <span class="badge rounded-pill bg-danger">Null</span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
