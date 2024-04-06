@@ -63,7 +63,7 @@
                 {% for serviceorder in serviceorders %}
                     {% if serviceorder.status != "delivered" %}
                         <tr>
-                            <td><a href="#">{{serviceorder.id|stringformat:"05d"}}</a></td>
+                            <td><a href="{{ serviceorder.get_absolute_url }}">{{serviceorder.id|stringformat:"05d"}}</a></td>
                             <td>{{serviceorder.description|truncatechars:50}}</td>
                             <td>R${{serviceorder.value|default:"0.00"|floatformat:2}}</td>
                             <td class="" style="padding-top: 1px; padding-left: 0;">

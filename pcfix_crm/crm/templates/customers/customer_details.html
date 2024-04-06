@@ -27,9 +27,10 @@
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <a href="{% url "customers" %}" class="btn btn-dark">Back</a>
-                    <a href="{% url "edit_customer" customer_id=customer.id %}" class="btn btn-success">Edit</a>
-                    <a href="{% url "delete_customer" customer_id=customer.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'customers' %}" class="btn btn-dark">Back</a>
+                    <a href="{% url 'edit_customer' customer_id=customer.id %}" class="btn btn-success">Edit</a>
+                    <a href="{% url 'delete_customer' customer_id=customer.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'create_order' %}?for_client={{customer.id}}" class="btn btn-primary">Create New Order</a>
                 </li>
             </ul>
         </div>
@@ -66,7 +67,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <a href="#" class="link-dark text-decoration-none">
+                                        <a href="{{service.get_absolute_url}}" class="link-dark text-decoration-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 29 29" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>

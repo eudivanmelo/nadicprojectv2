@@ -1,5 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
+from django.urls import reverse
 from django.utils import timezone
 
 class Customer(models.Model):
@@ -47,25 +48,23 @@ class ServiceOrder(models.Model):
         status (CharField): O status atual da ordem de serviço.
     """
 
-    client = models.ForeignKey(Customer, on_delete=models.CASCADE,
-                                help_text="The client associated with the service order.")
-    description = models.TextField(help_text="Description of the service order.")
-    created_at = models.DateTimeField(auto_now_add=True,
-                                      help_text="Date and time when the service order was created.")
-    concluded_at = models.DateTimeField(null=True,
-                                         help_text="Date and time when the service order was concluded (nullable).")
-    value = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
-                                help_text="Value of the service order (nullable).")
+    client = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    concluded_at = models.DateTimeField(null=True)
+    value = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     status_choices = [('budgeting', 'Budgeting'),
                       ('approved_budget', 'Approved budget'),
                       ('under_maintenance', 'Under maintenance'),
                       ('concluded', 'Concluded'),
                       ('delivered', 'Delivered')]
-    status = models.CharField(max_length=20, choices=status_choices,
-                              help_text="Current status of the service order.")
+    status = models.CharField(max_length=20, choices=status_choices, default='budgeting')
     
     def __str__(self):
         return f"Service Order for '{self.client}' - Status: {self.status}"
+    
+    def get_absolute_url(self):
+        return reverse('detail_order', kwargs={'pk': self.pk})
     
 @receiver(models.signals.pre_save, sender=ServiceOrder)
 def update_concluded_at(sender, instance, **kwargs):

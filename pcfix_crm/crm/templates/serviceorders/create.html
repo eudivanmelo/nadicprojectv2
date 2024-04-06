@@ -1,0 +1,55 @@
+{% extends "../utils/base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">New Order</h1>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="w-50 mt-5 m-auto" style="min-width: 300px;">
+            <div class="row mb-3">
+                <label for="selectClient" class="col-auto col-form-label">Client:</label>
+                <div class="col">
+                    <select class="form-select form-select-sm" id="selectClient" name="client" required_id="id_client">
+                        {% for client in form.client.field.queryset %}
+                            {% if client.id == form.initial.client %} 
+                                <option value="{{client.id}}" selected>{{client}}</option>
+                            {% else %}
+                                <option value="{{client.id}}">{{client}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="textareaDescription" class="col-auto col-form-label">Description:</label>
+                <div class="col">
+                    <textarea name="description"
+                            class="form-control form-control-sm {% if form.description.errors %}is-invalid{% endif %}" 
+                            id="textareaDescription" rows="5"></textarea>
+
+                    {% for error in form.description.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-dark w-100">Save</button>
+                </div>
+                
+                <div class="col">
+                    <a class="btn btn-danger w-100" href="{% url 'orders' %}">Back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock main %}

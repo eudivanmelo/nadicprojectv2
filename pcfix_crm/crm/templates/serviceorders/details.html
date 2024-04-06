@@ -1,0 +1,56 @@
+{% extends "../utils/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block main %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Order Details</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h4>Order Information</h4>
+                    <div class="ms-3">
+                        <p class="m-0"><strong>Code: </strong>{{service.id|stringformat:"05d"}}</p>
+                        <p class="m-0"><strong>Customer: </strong>{{service.client}}</p>
+                        <p class="m-0"><strong>Created at: </strong>{{service.created_at}}</p>
+                        <p class="m-0"><strong>Concluded at: </strong>{{service.concluded_at|default:"Not concluded"}}</p>
+                        <p class="m-0"><strong>Value: </strong>R${{service.value|default:"0.00"|floatformat:2}}</p>
+                        <p class="m-0">
+                            <strong>Status: </strong>
+                            {% if service.status == 'budgeting' %}
+                                <span class="badge rounded-pill bg-warning text-dark">Budgeting</span>
+                            {% elif service.status == 'approved_budget' %}
+                                <span class="badge rounded-pill bg-secondary">Approved budget</span>
+                            {% elif service.status == 'under_maintenance' %}
+                                <span class="badge rounded-pill bg-primary">Under maintenance</span>
+                            {% elif service.status == 'concluded' %}
+                                <span class="badge rounded-pill bg-info text-dark">Concluded</span>
+                            {% elif service.status == 'delivered' %}
+                                <span class="badge rounded-pill bg-success">Delivered</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-danger">Null</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h4>Complete Description</h4>
+                    <div class="ms-3">
+                        <p class="m-0">{{service.description}}</p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'orders' %}" class="btn btn-dark">Back to Orders List</a>
+                    <a href="{% url 'update_order' pk=service.id %}" class="btn btn-success">Edit</a>
+                    <a href="{% url 'delete_order' pk=service.id %}" class="btn btn-danger">Delete</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-12">
+
+        </div>
+    </div>
+{% endblock main %}

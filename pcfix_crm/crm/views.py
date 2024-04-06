@@ -270,7 +270,6 @@ def customer_edit_view(request: HttpRequest, customer_id: int):
     # Renderiza o template 'customers/customer_edit.html' com o contexto e retorna a resposta HTTP
     return render(request, 'customers/customer_edit.html', context)
 
-
 @login_required
 def customer_delete_view(request: HttpRequest, customer_id: int):
     """
