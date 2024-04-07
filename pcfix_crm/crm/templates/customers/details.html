@@ -28,8 +28,8 @@
                 </li>
                 <li class="list-group-item">
                     <a href="{% url 'customers' %}" class="btn btn-dark">Back</a>
-                    <a href="{% url 'edit_customer' customer_id=customer.id %}" class="btn btn-success">Edit</a>
-                    <a href="{% url 'delete_customer' customer_id=customer.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'update_customer' pk=customer.id %}" class="btn btn-success">Edit</a>
+                    <a href="{% url 'delete_customer' pk=customer.id %}" class="btn btn-danger">Delete</a>
                     <a href="{% url 'create_order' %}?for_client={{customer.id}}" class="btn btn-primary">Create New Order</a>
                 </li>
             </ul>

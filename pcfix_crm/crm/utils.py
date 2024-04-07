@@ -106,22 +106,22 @@ def generate_weekly_report():
             {
                 'label': 'Customers Created',
                 'data': customers_created,
-                'backgroundColor': 'rgba(255, 99, 132, 0.2)',
-                'borderColor': 'rgba(255, 99, 132, 1)',
+                'backgroundColor': 'rgba(250, 50, 100, 0.2)',
+                'borderColor': 'rgba(250, 50, 100)',
                 'borderWidth': 1
             },
             {
                 'label': 'Services Created',
                 'data': services_created,
-                'backgroundColor': 'rgba(54, 162, 235, 0.2)',
-                'borderColor': 'rgba(54, 162, 235, 1)',
+                'backgroundColor': 'rgba(50, 100, 250, 0.2)',
+                'borderColor': 'rgba(50, 100, 250)',
                 'borderWidth': 1
             },
             {
                 'label': 'Services Completed',
                 'data': services_completed,
-                'backgroundColor': 'rgba(75, 192, 192, 0.2)',
-                'borderColor': 'rgba(75, 192, 192, 1)',
+                'backgroundColor': 'rgba(50, 250, 100, 0.2)',
+                'borderColor': 'rgba(50, 250, 100)',
                 'borderWidth': 1
             }
         ]

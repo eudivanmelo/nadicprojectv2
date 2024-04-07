@@ -4,10 +4,10 @@
 {% block main %}
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Edit Customer</h1>
+        <h1 class="h2">New Customer</h1>
     </div>
 
-    <form class="" method="post">
+    <form method="post">
         {% csrf_token %}
 
         <div class="w-50 mt-5 m-auto" style="min-width: 300px;">
@@ -99,16 +99,7 @@
                         <div class="invalid-feedback">{{ error }}</div>
                     {% endfor %}
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="inputCreated_at" class="col-auto col-form-label">Created at:</label>
-                <div class="col">
-                    <input value="{{ customer.created_at }}" 
-                            type="text" 
-                            class="form-control-plaintext" 
-                            id="inputCreated_at" readonly> 
-                </div>
+                
             </div>
 
             <div class="row mb-3">
@@ -117,7 +108,7 @@
                 </div>
                 
                 <div class="col">
-                    <a class="btn btn-danger w-100" href="{% url "customers" %}">Back</a>
+                    <a class="btn btn-danger w-100" href="{% url 'customers' %}">Back</a>
                 </div>
             </div>
         </div>

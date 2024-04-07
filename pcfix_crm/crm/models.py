@@ -17,23 +17,19 @@ class Customer(models.Model):
         created_at (DateTimeField): A data e hora de criação do registro do cliente (auto_now_add=True).
     """
 
-    first_name = models.CharField(max_length=50,
-                                  help_text="First name of the customer.")
-    last_name = models.CharField(max_length=50,
-                                  help_text="Last name of the customer.")
-    email = models.EmailField(help_text="Email address of the customer.")
-    phone = models.CharField(max_length=20,
-                              help_text="Phone number of the customer.")
-    address = models.CharField(max_length=200,
-                                help_text="Address of the customer.")
-    cpf = models.CharField(max_length=11, unique=True,
-                            help_text="CPF number of the customer.")
-    created_at = models.DateTimeField(auto_now_add=True,
-                                       help_text="Date and time when the customer record was created.")
-
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    cpf = models.CharField(max_length=11, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
+    
+    def get_absolute_url(self):
+        return reverse('detail_customer', kwargs={'pk': self.pk})
     
 class ServiceOrder(models.Model):
     """

@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from .base import ContextMixin
 from ..models import ServiceOrder
 
+@method_decorator(login_required, name='dispatch')
 class ViewBase(ContextMixin):
     """
     Classe base para visualizações de pedidos de serviço.
@@ -36,11 +39,19 @@ class ServiceOrder_CreateView(ViewBase, CreateView):
     """
     template_name = "serviceorders/create.html"
     fields = ['client', 'description']
-    success_url = reverse_lazy('orders')
+    
+    def get_success_url(self):
+        """
+        Atualiza a url de sucesso ao criar um novo usuário, enviando 
+        para página de detalhes do serviço criado
+        """
+        success_url = reverse_lazy('detail_order', kwargs={'pk': self.object.id})
+        return success_url
 
     def get_initial(self):
         """
-        Define os valores iniciais do formulário, incluindo o cliente, se especificado na consulta GET.
+        Define os valores iniciais do formulário, incluindo o cliente, se 
+        especificado na consulta GET.
         """
         initial = super().get_initial()
         for_client = self.request.GET.get('for_client')

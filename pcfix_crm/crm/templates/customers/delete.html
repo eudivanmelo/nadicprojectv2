@@ -15,7 +15,8 @@
         <p class="text-danger">This action is irreversible.</p>
         <form method="post">
             {% csrf_token %}
-            <a class="btn btn-dark me-3" href="{% url "customers" %}">Back</a>
+            <a class="btn btn-success me-3" href="{% url 'customers' %}">Back to Customers List</a>
+            <a class="btn btn-dark me-3" href="{% url 'detail_customer' pk=customer.id %}">Details</a>
             <button class="btn btn-danger" type="submit">Delete</button>
         </form>
     </div>
